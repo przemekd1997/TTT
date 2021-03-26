@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>test</title>
+</head>
+
+<body>
+    <form id="formElem">
+        <input type="number" name="first">
+        <input type="number" name="last">
+        <input type="submit">
+    </form>
+    <div id="decoded"></div>
+</body>
+<script>
+    formElem.onsubmit = async (e) => {
+      e.preventDefault();
+      var form = document.querySelector("#formElem");
+     // var form = document.forms[0];
+
+        data = {
+          ID : form.querySelector('input[name="first"]').value
+        }
+
+        let response = await fetch('http://localhost:3000/add_match', {
+                method: 'POST', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+        })
+
+        let text = await response.text(); // read response body as text
+        document.querySelector("#decoded").innerHTML = text;
+    };
+</script>
+</html>
